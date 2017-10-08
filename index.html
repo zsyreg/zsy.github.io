@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>音乐播放</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		body{
+			background: #ccc;
+		}
+		.wrap{
+			width: 320px;
+			height: 600px;
+			margin: 100px auto;
+			background: #000;
+			font-family: "微软雅黑";
+			padding: 5px;
+			background-color: #222;
+			border-radius: 20px;
+			box-shadow: 0 0 7px #fff;
+			overflow: hidden;
+		}
+		.top{
+			width: 320px;
+			height: 23px;
+			background: url("img/music/1.png") no-repeat;
+		}
+		.title{
+			width: 320px;
+			height: 30px;
+			background: url("img/music/2.png") no-repeat;
+			font-size: 20px;
+			color: #ccc;
+			font-weight: bold;
+			text-align: center;
+			line-height: 30px;
+		}
+		.play{
+			width: 190px;
+			height:190px;
+			background: url("img/music/3.png") no-repeat;
+			margin: auto;
+			border-radius: 50%;
+		}
+		.singer{
+			width: 320px;
+			font-size: 14px;
+			color: #ccc;
+			text-align: center;
+			line-height: 40px;
+		}
+		.lrc{
+			width: 300px;
+			height: 285px;
+			margin: 20px auto;
+			text-align: center;
+			overflow: hidden;
+			color: #ccc;
+		}
+		.lrc p{
+			line-height: 20px;
+			font-size: 12px;
+		}
+		.content{
+			position: relative;
+			left: 0;
+			top: 0;
+		}
+		.rotate{
+			width: 190px;
+			height:190px;
+			background: url("img/music/3.png") no-repeat;
+			margin: auto;
+			border-radius: 50%;
+			-webkit-animation:rot 5s linear infinite;
+			-moz-animation:rot 5s linear infinite;
+			-ms-animation:rot 5s linear infinite;
+			-o-animation:rot 5s linear infinite;
+			animation:rot 5s linear infinite;
+		}
+		@-webkit-keyframes rot{
+			from{
+				transform: rotate(0deg);
+			}
+			to{
+				transform: rotate(360deg);
+			}
+		}
+	</style>
+	
+</head>
+<body>
+	<div class="wrap">
+		<textarea id="txt" style="display: none;">
+			[00:00.00] 作曲 : ilem
+			[00:23.76]有时候 我会回首 会看见 过去那小小的我
+			[00:35.31]我知道 他所有悲伤的理由
+			[00:41.47]可 他 不 知 道我
+			[00:46.42]前还是后 左还是右
+			[00:49.21]去还是留 牵谁的手
+			[00:52.27]你犯的错 留下伤口
+			[00:55.15]直到现在 还是会痛
+			[00:57.87]你没人能懂的难过
+			[01:00.75]你没人看见的脆弱
+			[01:03.72]不别走 请听我说 请听我说 请听我说
+			[01:09.96]有时候
+			[01:12.16]我想起那个曾经的我
+			[01:15.44]站在路口
+			[01:18.06]不知道应该怎么走
+			[01:21.34]我多想 哪怕只是站在他的身旁
+			[01:26.80]说你的 一切我都懂
+			[01:33.05]因为 你就是我:)
+			[01:37.40]
+			[01:38.85]有时候 我抬起头
+			[01:44.33]试着张望 远方那变老的我
+			[01:50.21]他是否 还有悲伤的理由
+			[01:56.32]他是 否 记得我
+			[02:01.63]对还是错 该怎么做
+			[02:04.15]而你的生活又如何
+			[02:07.18]我的选择 什么结果
+			[02:09.94]悲伤快乐 谁比较多
+			[02:13.23]你是否带着我的梦
+			[02:15.90]你是否记得我的痛
+			[02:18.71]不别走 请告诉我 请告诉我 请告诉我
+			[02:24.79]有时候 我还是那个曾经的我
+			[02:30.34]站在路口 不知道应该怎么走
+			[02:36.45]我多想能够有人站在我的身旁
+			[02:41.73]说你的一切我都懂
+			[02:47.07]
+			[02:47.82]有时候 我想起那个曾经的我
+			[02:53.50]站在路口
+			[02:55.97]不知道应该怎么走
+			[02:59.33]我多想 哪怕只是站在他的身旁
+			[03:04.62]说你的一切我都懂
+			[03:10.82]因为 你 就是我
+		</textarea>
+		<div class="top"></div>
+		<div class="title">今天的诗</div>
+		<div class="singer">葛平</div>
+		<div class="play"></div>
+		<div class="lrc">
+			<div class="content"></div>
+		</div>
+		<audio src="mp3/葛平 - 今天的诗.mp3" class="Mymusic"></audio>
+	</div>
+	<script>
+		
+			var oBtn = document.getElementsByClassName('play')[0];
+			var mc = document.getElementsByTagName('audio')[0];
+			var txt = document.getElementById('txt');
+			var con = document.getElementsByClassName('content')[0];
+			var lrc = txt.value;
+			var lrcArr = lrc.split('[');
+			var html = '';
+			var br = true;
+
+			oBtn.onclick = function(){
+				if(br){
+					this.className = 'rotate';
+					mc.play();
+					br = false; 
+				}else{
+					this.className = 'play';
+					mc.pause();
+					br = true; 
+				}
+			}
+
+			for(var i = 0; i<lrcArr.length;i++){
+				var arr = lrcArr[i].split(']');
+				var time = arr[0].split('.');
+				var timer = time[0].split(':');
+				var ms = timer[0]*60+timer[1]*1;
+				console.log(ms);
+				var text = arr[1];
+				if(text){
+					html += '<p id='+ms+'>'+text+'</p>'
+				}
+				con.innerHTML = html;
+			}
+			var num = 0;
+			var op = document.getElementsByTagName('p');
+
+			mc.addEventListener('timeupdate',function(){
+				var curTime = parseInt(this.currentTime);
+				
+				if(document.getElementById(curTime)){
+					for(var i=0;i<op.length;i++){
+						op[i].style.cssText = 'color:#ccc; font-size:12px';
+					}
+					document.getElementById(curTime).style.cssText='color:red; font-size:16px';
+				}
+				if(op[6+num].id==curTime){
+					con.style.top = -20*num+'px';
+					num++;
+				}
+			});
+
+		
+	</script>
+</body>
+</html>
